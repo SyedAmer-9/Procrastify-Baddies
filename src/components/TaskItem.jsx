@@ -2,7 +2,7 @@
 
 export default function TaskItem({task,deleteTask,toggleComplete}) {
   return (
-    <li className="flex justify-between items-center p-3 bg-gray-800 rounded-md">
+    <li className="flex justify-between items-center p-3 bg-gray-100 dark:bg-gray-800 rounded-md">
         
         <input
             type='checkbox'

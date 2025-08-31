@@ -1,12 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect, useMemo,useContext} from "react";
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
+import TaskFilter from "./components/TaskFilter";
+import { ThemeContext } from "./context/ThemeContext";
 function App() {
+  const {theme,toggleTheme} = useContext(ThemeContext);
   
 //this two states are for holding and memorizing the tasks
 
 const [newTask,setNewTask] = useState("")
-const [tasks,setTaskList] = useState([])
+const [tasks,setTaskList] = useState(()=>{
+  const savedTasks = localStorage.getItem('tasks');
+  if(savedTasks){
+    return JSON.parse(savedTasks);
+  }else{
+    return [];
+  }
+})
+const [filter,setFilter] = useState('all');
+
+useEffect(()=>{
+  localStorage.setItem('tasks',JSON.stringify(tasks));
+},[tasks])
+
+const remainingTasksCount = useMemo(()=>{
+  return tasks.filter(t=> !t.completed).length;
+},[tasks]);
 
 const handleSubmitTask = (e) =>{
   e.preventDefault() //prevents the page from refreshing on pressing submit
@@ -38,23 +57,50 @@ const toggleComplete = (idToToggle)=>{
   setTaskList(updatedTasks);
 };
 
-  return (
-    <main className="p-8 max-w-lg mx-auto">
-      <h1 className="text-3xl font-bold mb-6 text-center text-grey-200">
-        Procrastify-Baddies
-      </h1>
-      
-      <TaskForm 
-      newTask={newTask}
-      setNewTask={setNewTask}
-      handleSubmitTask={handleSubmitTask}/>
+let filteredTasks = [];
 
-      <TaskList
-        tasks={tasks}
-        deleteTask = {deleteTask}
-        toggleComplete={toggleComplete}
-      />
-    </main>
+if(filter ==='active'){
+  filteredTasks = tasks.filter(t=> !t.completed);
+}else if (filter === 'completed'){
+  filteredTasks = tasks.filter(t => t.completed)
+}else{
+  filteredTasks = tasks
+}
+
+  return (
+    <div className={theme}>
+      <main className="min-h-screen bg-white dark:bg-gray-900 p-8 max-w-lg mx-auto">
+        <div className="flex justify-between items-center mb-10">
+          <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200">
+            Procrastify-Baddies
+          </h1>
+          <button 
+            onClick={toggleTheme}
+            className="px-3 py-1 rounded-md bg-gray-200 dark:bg-gray-700 text-sm"
+          >
+            Toggle Theme
+          </button>
+        </div>
+        
+        <TaskForm 
+          newTask={newTask}
+          setNewTask={setNewTask}
+          handleSubmitTask={handleSubmitTask}
+        />
+
+        <h2 className="text-center text-gray-400 text-lg my-4">
+          Tasks Remaining: {remainingTasksCount}
+        </h2>
+
+        <TaskFilter setFilter={setFilter} />
+
+        <TaskList
+          tasks={filteredTasks}
+          deleteTask={deleteTask}
+          toggleComplete={toggleComplete}
+        />
+      </main>
+    </div>
   )
 }
 

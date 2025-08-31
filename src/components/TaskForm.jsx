@@ -1,9 +1,17 @@
+import {useRef, useEffect} from 'react';
+
 function TaskForm({newTask,setNewTask,handleSubmitTask}){
+    const inputRef = useRef(null);
+
+    useEffect(()=>{
+        inputRef.current.focus();
+    },[]);
     return(
-    <form onSubmit={handleSubmitTask} className="mb-10">
-        <div className="flex gap-3">
+    <form onSubmit={handleSubmitTask} className="mb-3">
+        <div className="flex gap-3 ">
             <input
-                className="flex-grow p-2.5 border-green-900 rounded-md bg-yellow-800 text-gray-200 text-sm"
+                ref = {inputRef}
+                className="flex-grow p-2.5 border-green-900 rounded-md bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200"
                 type='text'
                 placeholder="Add your tasks here(as if you gonna complete it)"
                 value = {newTask}
