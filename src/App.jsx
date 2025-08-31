@@ -28,6 +28,16 @@ const deleteTask = (idToDelete) => {
   setTaskList(updatedTasks)
 };
 
+const toggleComplete = (idToToggle)=>{
+  const updatedTasks = tasks.map(t =>{
+    if(t.id === idToToggle){
+      return {...t,completed:!t.completed};
+    }
+    return t;
+  });
+  setTaskList(updatedTasks);
+};
+
   return (
     <main className="p-8 max-w-lg mx-auto">
       <h1 className="text-3xl font-bold mb-6 text-center text-grey-200">
@@ -42,6 +52,7 @@ const deleteTask = (idToDelete) => {
       <TaskList
         tasks={tasks}
         deleteTask = {deleteTask}
+        toggleComplete={toggleComplete}
       />
     </main>
   )

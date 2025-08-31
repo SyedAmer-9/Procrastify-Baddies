@@ -1,9 +1,17 @@
 
 
-export default function TaskItem({task,deleteTask}) {
+export default function TaskItem({task,deleteTask,toggleComplete}) {
   return (
     <li className="flex justify-between items-center p-3 bg-gray-800 rounded-md">
-        <span>
+        
+        <input
+            type='checkbox'
+            checked = {task.completed}
+            className = 'mr-w h-5 w-5'
+            onChange={()=>toggleComplete(task.id)}
+        />
+
+        <span className={task.completed ? 'line-through text-gray-500':''}>
             {task.text}
         </span>
 
