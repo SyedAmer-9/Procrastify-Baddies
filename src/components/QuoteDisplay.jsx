@@ -12,7 +12,6 @@ function QuoteDisplay(){
                 setQuote(data[0]);
             }catch(error){
                 console.error("Failed to fetch quote",error);
-                
             }
         }
         fetchQuote();
