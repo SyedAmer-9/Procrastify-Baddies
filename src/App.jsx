@@ -3,6 +3,7 @@ import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
 import TaskFilter from "./components/TaskFilter";
 import { ThemeContext } from "./context/ThemeContext";
+import QuoteDisplay from "./components/QuoteDisplay";
 function App() {
   const {theme,toggleTheme} = useContext(ThemeContext);
   
@@ -99,6 +100,7 @@ if(filter ==='active'){
           deleteTask={deleteTask}
           toggleComplete={toggleComplete}
         />
+        <QuoteDisplay/>
       </main>
     </div>
   )
