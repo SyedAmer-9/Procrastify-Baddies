@@ -3,9 +3,9 @@ function TaskForm({newTask,setNewTask,handleSubmitTask}){
     <form onSubmit={handleSubmitTask} className="mb-10">
         <div className="flex gap-3">
             <input
-                className="flex-grow p-2.5 border-gray-600 rounded-md bg-gray-800 text-gray-200 text-sm"
+                className="flex-grow p-2.5 border-green-900 rounded-md bg-yellow-800 text-gray-200 text-sm"
                 type='text'
-                placeholder="Add your tasks here(as if you might complete it)"
+                placeholder="Add your tasks here(as if you gonna complete it)"
                 value = {newTask}
                 onChange={(e)=>setNewTask(e.target.value)}
             ></input>

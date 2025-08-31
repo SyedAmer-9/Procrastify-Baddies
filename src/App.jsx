@@ -1,11 +1,12 @@
-import { useState } from "react"
-import TaskForm from "./components/TaskForm"
+import { useState } from "react";
+import TaskForm from "./components/TaskForm";
+import TaskList from "./components/TaskList";
 function App() {
   
 //this two states are for holding and memorizing the tasks
 
 const [newTask,setNewTask] = useState("")
-const [task,setTaskList] = useState([])
+const [tasks,setTaskList] = useState([])
 
 const handleSubmitTask = (e) =>{
   e.preventDefault() //prevents the page from refreshing on pressing submit
@@ -17,7 +18,7 @@ const handleSubmitTask = (e) =>{
     text:newTask,
     completed:false,
   };
-  setTaskList([...task,newTaskObject]);
+  setTaskList([...tasks,newTaskObject]);
   setNewTask('');
 
 }
@@ -27,10 +28,15 @@ const handleSubmitTask = (e) =>{
       <h1 className="text-3xl font-bold mb-6 text-center text-grey-200">
         Procrastify-Baddies
       </h1>
+      
       <TaskForm 
       newTask={newTask}
       setNewTask={setNewTask}
       handleSubmitTask={handleSubmitTask}/>
+
+      <TaskList
+        tasks={tasks}
+      />
     </main>
   )
 }
