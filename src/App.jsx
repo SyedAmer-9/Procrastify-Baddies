@@ -23,6 +23,11 @@ const handleSubmitTask = (e) =>{
 
 }
 
+const deleteTask = (idToDelete) => {
+  const updatedTasks = tasks.filter(t=> t.id !=idToDelete);
+  setTaskList(updatedTasks)
+};
+
   return (
     <main className="p-8 max-w-lg mx-auto">
       <h1 className="text-3xl font-bold mb-6 text-center text-grey-200">
@@ -36,6 +41,7 @@ const handleSubmitTask = (e) =>{
 
       <TaskList
         tasks={tasks}
+        deleteTask = {deleteTask}
       />
     </main>
   )
