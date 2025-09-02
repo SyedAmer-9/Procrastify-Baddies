@@ -15,7 +15,7 @@ yarn-error.log*
 # This file often contains secret keys and API credentials.
 .env.local
 .env.*.local
-
+.env
 # IDE and OS-specific files
 .idea
 .vscode
